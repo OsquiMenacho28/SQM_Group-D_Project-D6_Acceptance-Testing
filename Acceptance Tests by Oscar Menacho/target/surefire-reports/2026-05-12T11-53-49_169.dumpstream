@@ -1,0 +1,5 @@
+# Created at 2026-05-12T11:53:49.466
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Users\usuario\GitHub\SQM_Group-D_Project-D6_Acceptance-Testing\Acceptance Tests by Oscar Menacho\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
