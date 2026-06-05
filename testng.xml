@@ -11,6 +11,7 @@
         <packages>
             <package name="edu.bo.ucb.*">
                 <exclude name="edu.bo.ucb.ejemplos"/>
+                <exclude name="edu.bo.ucb.jesusvelasco"/>
             </package>
         </packages>
     </test>

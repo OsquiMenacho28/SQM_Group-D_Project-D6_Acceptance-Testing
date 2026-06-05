@@ -59,6 +59,11 @@ public class RegistroAnimalTest extends BaseTest {
         driver.findElement(By.id("nombre")).sendKeys(nombreAnimal);
         driver.findElement(By.id("procedencia")).sendKeys("Sabana");
 
+        driver.findElement(By.id("fechaNac")).sendKeys("2026-06-19");
+        sleep();
+        driver.findElement(By.id("fechaIng")).sendKeys("2026-06-19");
+        sleep();
+
         // Seleccionar especie usando el filtro del dropdown
         driver.findElement(By.id("especieId")).click();
         sleep();
