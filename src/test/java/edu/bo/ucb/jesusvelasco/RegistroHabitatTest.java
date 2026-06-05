@@ -45,7 +45,7 @@ public class RegistroHabitatTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        driver.findElement(By.cssSelector(".p-drawer-close-button button")).click();
         sleep();
 
         driver.findElement(
