@@ -45,6 +45,9 @@ public class RegistroEspecieTest extends BaseTest {
         ).click();
         sleep();
 
+        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        sleep();
+
         driver.findElement(
             By.xpath("//span[text()='A\u00f1adir Especie']/ancestor::button")
         ).click();
