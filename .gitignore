@@ -23,4 +23,13 @@
 hs_err_pid*
 replay_pid*
 
-/target/*.*
+# Maven build output
+target/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Node
+node_modules/
