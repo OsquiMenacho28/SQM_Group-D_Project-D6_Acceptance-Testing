@@ -1,17 +1,10 @@
 package edu.bo.ucb.jesusvelasco;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import edu.bo.ucb.jesusvelasco.BaseTest;
 
 /****************************************/
 // Historia de Usuario: Como administrador del zoologico quiero registrar un nuevo animal
@@ -20,88 +13,85 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 // Prueba de Aceptacion: Verificar que un animal con datos completos se registre
 // exitosamente y se muestre la confirmacion correspondiente
 //
-// Paso 1. Ingresar al formulario de creacion de animal en /admin/animales/crear
-// Paso 2. Llenar todos los campos requeridos (nombre, especie, habitat, descripcion)
-// Paso 3. Enviar el formulario y esperar la confirmacion
+// Paso 1. Iniciar sesion como administrador
+// Paso 2. Ingresar al formulario de creacion de animal
+// Paso 3. Llenar todos los campos requeridos (nombre, especie, habitat, descripcion)
+// Paso 4. Enviar el formulario y esperar la confirmacion
 //
-// Resultado Esperado: El animal se crea exitosamente y se muestra un mensaje de exito
+        // Resultado Esperado: El animal se crea exitosamente y se muestra un mensaje de exito
 // o redireccion a la pagina de detalle
 /****************************************/
 
-public class RegistroAnimalTest {
+public class RegistroAnimalTest extends BaseTest {
 
-    private WebDriver driver;
-    private static final String BASE_URL = "http://localhost:4200";
-
-    @BeforeTest
-    public void setDriver() throws Exception {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterTest
-    public void closeDriver() throws Exception {
-        driver.quit();
-    }
-
-    @Test
+    @Test(priority = 3)
     public void registroAnimalConDatosCompletos() {
         long startTime = System.currentTimeMillis();
+        String ts = String.valueOf(startTime);
 
-        // Paso 1. Ingresar al formulario de creacion de animal
-        driver.get(BASE_URL + "/admin/animales/crear");
+        // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Paso 2. Navegar por la UI hasta el formulario de creacion de animal
+        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        sleep();
 
-        // Paso 2. Llenar todos los campos requeridos
-        driver.findElement(By.name("nombre")).sendKeys("Simba");
-        driver.findElement(By.name("procedencia")).sendKeys("Sabana");
+        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
+        sleep();
 
-        try {
-            Select especieSelect = new Select(driver.findElement(By.name("especie_id")));
-            especieSelect.selectByIndex(1);
-        } catch (Exception e) {
-            driver.findElement(By.name("especie_id")).sendKeys("1");
-        }
+        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        sleep();
 
-        try {
-            Select habitatSelect = new Select(driver.findElement(By.name("habitat_id")));
-            habitatSelect.selectByIndex(1);
-        } catch (Exception e) {
-            driver.findElement(By.name("habitat_id")).sendKeys("1");
-        }
+        driver.findElement(
+            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::button")
+        ).click();
+        sleep();
 
-        driver.findElement(By.name("descripcion")).sendKeys("Un leon majestuoso de la sabana africana");
+        driver.findElement(
+            By.xpath("//span[text()='A\u00f1adir Animal']/ancestor::button")
+        ).click();
+        sleep();
 
-        if (driver.findElements(By.name("genero")).size() > 0) {
-            driver.findElement(By.name("genero")).sendKeys("Macho");
-        }
+        // Paso 3. Llenar todos los campos requeridos
+        String nombreAnimal = "Simba " + ts;
+        driver.findElement(By.id("nombre")).sendKeys(nombreAnimal);
+        driver.findElement(By.id("procedencia")).sendKeys("Sabana");
 
-        // Paso 3. Enviar el formulario
-        WebElement submitBtn = driver.findElement(By.cssSelector("button[type='submit']"));
-        submitBtn.click();
+        // Seleccionar especie usando el filtro del dropdown
+        driver.findElement(By.id("especieId")).click();
+        sleep();
+        driver.findElement(By.cssSelector(".p-select-filter[placeholder='Buscar especie']"))
+            .sendKeys(createdEspecieNombre);
+        sleep();
+        driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
+        sleep();
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Seleccionar habitat usando el filtro del dropdown
+        driver.findElement(By.id("habitatId")).click();
+        sleep();
+        driver.findElement(By.cssSelector(".p-select-filter[placeholder='Buscar h\u00e1bitat']"))
+            .sendKeys(createdHabitatNombre);
+        sleep();
+        driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
+        sleep();
 
-        // Verificar resultado: redireccion o toast de exito
-        String currentUrl = driver.getCurrentUrl();
-        boolean exito = !currentUrl.contains("crear")
-                || driver.findElements(By.cssSelector(".toast-success, .alert-success")).size() > 0;
+        driver.findElement(By.id("descripcion")).sendKeys("Un leon majestuoso de la sabana africana");
 
+        // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
+        driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
+        sleep();
+
+        // Paso 5. Verificar en la lista de animales
+        driver.findElement(
+            By.xpath("//span[text()='Lista de Animales']/ancestor::button")
+        ).click();
+        sleep();
+
+        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
-        System.out.println("URL actual: " + currentUrl);
+        System.out.println("Animal creado: " + nombreAnimal);
         System.out.println("Tiempo de ejecucion: " + elapsed + " ms");
 
-        Assert.assertTrue(exito, "El animal debe crearse exitosamente");
+        Assert.assertTrue(body.contains(nombreAnimal), "El animal '" + nombreAnimal + "' debe aparecer en la lista");
     }
 }

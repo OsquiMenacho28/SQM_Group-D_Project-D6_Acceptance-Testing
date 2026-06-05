@@ -1,16 +1,10 @@
 package edu.bo.ucb.jesusvelasco;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import edu.bo.ucb.jesusvelasco.BaseTest;
 
 /****************************************/
 // Historia de Usuario: Como administrador del zoologico quiero registrar una nueva especie
@@ -19,72 +13,71 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 // Prueba de Aceptacion: Verificar que una especie con datos taxonomicos completos
 // (nombre cientifico, nombre comun, filo, clase, orden, familia) se registre exitosamente
 //
-// Paso 1. Ingresar al formulario de creacion de especie en /admin/especies/crear
-// Paso 2. Llenar todos los campos taxonomicos requeridos
-// Paso 3. Enviar el formulario y esperar la confirmacion
+// Paso 1. Iniciar sesion como administrador
+// Paso 2. Ingresar al formulario de creacion de especie
+// Paso 3. Llenar todos los campos taxonomicos requeridos
+// Paso 4. Enviar el formulario y esperar la confirmacion
 //
-// Resultado Esperado: La especie se crea exitosamente y se muestra un mensaje de confirmacion
+        // Resultado Esperado: La especie se crea exitosamente y se muestra un mensaje de confirmacion
 /****************************************/
 
-public class RegistroEspecieTest {
+public class RegistroEspecieTest extends BaseTest {
 
-    private WebDriver driver;
-    private static final String BASE_URL = "http://localhost:4200";
-
-    @BeforeTest
-    public void setDriver() throws Exception {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterTest
-    public void closeDriver() throws Exception {
-        driver.quit();
-    }
-
-    @Test
+    @Test(priority = 1)
     public void registroEspecieConDatosTaxonomicos() {
         long startTime = System.currentTimeMillis();
+        String ts = String.valueOf(startTime);
 
-        // Paso 1. Ingresar al formulario de creacion de especie
-        driver.get(BASE_URL + "/admin/especies/crear");
+        // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Paso 2. Navegar por la UI hasta el formulario de creacion de especie
+        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        sleep();
 
-        // Paso 2. Llenar todos los campos taxonomicos requeridos
-        driver.findElement(By.name("nombreCientifico")).sendKeys("Panthera leo");
-        driver.findElement(By.name("nombreComun")).sendKeys("Leon");
-        driver.findElement(By.name("filo")).sendKeys("Chordata");
-        driver.findElement(By.name("clase")).sendKeys("Mammalia");
-        driver.findElement(By.name("orden")).sendKeys("Carnivora");
-        driver.findElement(By.name("familia")).sendKeys("Felidae");
-        driver.findElement(By.name("descripcion")).sendKeys("Gran felino africano cazador");
+        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
+        sleep();
 
-        // Paso 3. Enviar el formulario
-        WebElement submitBtn = driver.findElement(By.cssSelector("button[type='submit']"));
-        submitBtn.click();
+        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        sleep();
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        driver.findElement(
+            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::button")
+        ).click();
+        sleep();
 
-        // Verificar resultado: redireccion o toast de exito
-        String currentUrl = driver.getCurrentUrl();
-        boolean exito = !currentUrl.contains("crear")
-                || driver.findElements(By.cssSelector(".toast-success, .alert-success")).size() > 0;
+        driver.findElement(
+            By.xpath("//span[text()='A\u00f1adir Especie']/ancestor::button")
+        ).click();
+        sleep();
 
+        // Paso 3. Llenar todos los campos taxonomicos requeridos
+        String nombreComun = "Leon " + ts;
+        createdEspecieNombre = nombreComun;
+
+        driver.findElement(By.id("nombreCientifico")).sendKeys("Panthera leo " + ts);
+        driver.findElement(By.id("nombreComun")).sendKeys(nombreComun);
+        driver.findElement(By.id("filo")).sendKeys("Chordata");
+        driver.findElement(By.id("clase")).sendKeys("Mammalia");
+        driver.findElement(By.id("orden")).sendKeys("Carnivora");
+        driver.findElement(By.id("familia")).sendKeys("Felidae");
+        driver.findElement(By.id("descripcion")).sendKeys("Gran felino africano cazador");
+
+        // Paso 4. Enviar el formulario
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        sleep();
+
+        // Paso 5. Verificar en la lista de especies
+        driver.findElement(
+            By.xpath("//span[text()='Lista de Especies']/ancestor::button")
+        ).click();
+        sleep();
+
+        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
-        System.out.println("URL actual: " + currentUrl);
+        System.out.println("Especie creada: " + nombreComun);
         System.out.println("Tiempo de ejecucion: " + elapsed + " ms");
 
-        Assert.assertTrue(exito, "La especie debe crearse exitosamente");
+        Assert.assertTrue(body.contains(nombreComun), "La especie '" + nombreComun + "' debe aparecer en la lista");
     }
 }

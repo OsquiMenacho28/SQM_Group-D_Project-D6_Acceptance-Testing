@@ -1,16 +1,10 @@
 package edu.bo.ucb.jesusvelasco;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import edu.bo.ucb.jesusvelasco.BaseTest;
 
 /****************************************/
 // Historia de Usuario: Como administrador del zoologico quiero registrar un nuevo habitat
@@ -19,69 +13,68 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 // Prueba de Aceptacion: Verificar que un habitat con datos completos
 // (nombre, tipo, descripcion, condiciones climaticas) se registre exitosamente
 //
-// Paso 1. Ingresar al formulario de creacion de habitat en /admin/habitats/crear
-// Paso 2. Llenar todos los campos requeridos del habitat
-// Paso 3. Enviar el formulario y esperar la confirmacion
+// Paso 1. Iniciar sesion como administrador
+// Paso 2. Ingresar al formulario de creacion de habitat
+// Paso 3. Llenar todos los campos requeridos del habitat
+// Paso 4. Enviar el formulario y esperar la confirmacion
 //
-// Resultado Esperado: El habitat se crea exitosamente y se muestra un mensaje de exito
+        // Resultado Esperado: El habitat se crea exitosamente y se muestra un mensaje de exito
 /****************************************/
 
-public class RegistroHabitatTest {
+public class RegistroHabitatTest extends BaseTest {
 
-    private WebDriver driver;
-    private static final String BASE_URL = "http://localhost:4200";
-
-    @BeforeTest
-    public void setDriver() throws Exception {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterTest
-    public void closeDriver() throws Exception {
-        driver.quit();
-    }
-
-    @Test
+    @Test(priority = 2)
     public void registroHabitatConDatosCompletos() {
         long startTime = System.currentTimeMillis();
+        String ts = String.valueOf(startTime);
 
-        // Paso 1. Ingresar al formulario de creacion de habitat
-        driver.get(BASE_URL + "/admin/habitats/crear");
+        // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Paso 2. Navegar por la UI hasta el formulario de creacion de habitat
+        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        sleep();
 
-        // Paso 2. Llenar todos los campos requeridos
-        driver.findElement(By.name("nombre")).sendKeys("Sabana Africana");
-        driver.findElement(By.name("tipo")).sendKeys("Tropical");
-        driver.findElement(By.name("descripcion")).sendKeys("Sabana africana con clima calido y vegetacion dispersa");
-        driver.findElement(By.name("condicionesClimaticas")).sendKeys("Calido y seco");
+        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
+        sleep();
 
-        // Paso 3. Enviar el formulario
-        WebElement submitBtn = driver.findElement(By.cssSelector("button[type='submit']"));
-        submitBtn.click();
+        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        sleep();
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        driver.findElement(
+            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::button")
+        ).click();
+        sleep();
 
-        // Verificar resultado: redireccion o toast de exito
-        String currentUrl = driver.getCurrentUrl();
-        boolean exito = !currentUrl.contains("crear")
-                || driver.findElements(By.cssSelector(".toast-success, .alert-success")).size() > 0;
+        driver.findElement(
+            By.xpath("//span[text()='A\u00f1adir H\u00e1bitat']/ancestor::button")
+        ).click();
+        sleep();
 
+        // Paso 3. Llenar todos los campos requeridos
+        String nombreHabitat = "Sabana " + ts;
+        createdHabitatNombre = nombreHabitat;
+
+        driver.findElement(By.id("nombre")).sendKeys(nombreHabitat);
+        driver.findElement(By.id("tipo")).sendKeys("Tropical");
+        driver.findElement(By.id("descripcion")).sendKeys("Sabana africana con clima calido y vegetacion dispersa");
+        driver.findElement(By.id("condicionesClimaticas")).sendKeys("Calido y seco");
+
+        // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
+        driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
+        sleep();
+
+        // Paso 5. Verificar en la lista de habitats
+        driver.findElement(
+            By.xpath("//span[text()='Lista de H\u00e1bitats']/ancestor::button")
+        ).click();
+        sleep();
+
+        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
-        System.out.println("URL actual: " + currentUrl);
+        System.out.println("Habitat creado: " + nombreHabitat);
         System.out.println("Tiempo de ejecucion: " + elapsed + " ms");
 
-        Assert.assertTrue(exito, "El habitat debe crearse exitosamente");
+        Assert.assertTrue(body.contains(nombreHabitat), "El habitat '" + nombreHabitat + "' debe aparecer en la lista");
     }
 }
