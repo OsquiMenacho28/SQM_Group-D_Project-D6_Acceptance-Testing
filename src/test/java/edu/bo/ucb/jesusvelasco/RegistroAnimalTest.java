@@ -42,7 +42,7 @@ public class RegistroAnimalTest extends BaseTest {
         sleep();
 
         driver.findElement(
-            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::button")
+            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::li")
         ).click();
         sleep();
 
