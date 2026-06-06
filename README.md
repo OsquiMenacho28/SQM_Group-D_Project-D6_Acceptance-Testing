@@ -43,13 +43,7 @@ src/test/java/edu/bo/ucb/
 │   ├── RegistroEspecieTest.java
 │   ├── RegistroHabitatTest.java
 │   └── RegistroAnimalTest.java
-├── manueljimenez/
-│   ├── BaseTest.java      # Setup compartido (login, driver, waits)
-│   ├── RegistroTareaTest.java
-│   ├── AsignarTareaTest.java
-│   └── PlanificarRutinaTest.java
 ├── luzticona/
-├── manueldelgadillo/
 └── oscarmenacho/
 ```
 
@@ -62,7 +56,3 @@ Cada miembro del equipo trabaja en su propia carpeta. Los tests pueden usar `Bas
 - ✅ **RegistroHabitatTest** — crear hábitat con datos completos
 - ✅ **RegistroAnimalTest** — crear animal con nombre, especie, hábitat y fechas
 
-### manueljimenez
-- ✅ **RegistroTareaTest** — crear tarea manual desde el tablero de operaciones
-- ✅ **AsignarTareaTest** — asignar tarea a un cuidador desde la bandeja de entrada
-- ✅ **PlanificarRutinaTest** — crear rutina recurrente desde el planificador
