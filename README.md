@@ -21,22 +21,17 @@ Pruebas de aceptación automatizadas con Selenium WebDriver + TestNG para el pro
 ## Ejecutar tests
 
 ```bash
-# Todos los tests (usa testng.xml)
+# Todos los tests
 mvn test
 
 # Tests de un paquete específico
-mvn -Dtest="edu.bo.ucb.miembro.*" test
+mvn test -Dtest="edu.bo.ucb.miembro.*"
 
 # Un solo test
-mvn -Dtest=RegistroAnimalTest test
+mvn test -Dtest=RegistroTareaTest
 ```
 
-El archivo `testng.xml` define qué tests se ejecutan con `mvn test`:
-
-1. **Paquetes con orden explícito** — los tests que requieren orden específico se listan en `<classes>`
-2. **Otros paquetes** — cualquier clase en `edu.bo.ucb.*` excepto `ejemplos/`
-
-Para excluir un paquete del `mvn test` general, agregarlo en `<exclude>` dentro de `testng.xml`.
+Los tests se auto-descubren. Solo creá tu archivo `*Test.java` en tu carpeta y maven lo agarra solo. Tests con dependencias usan `dependsOnGroups` en lugar de orden explícito.
 
 ## Estructura
 
@@ -48,9 +43,13 @@ src/test/java/edu/bo/ucb/
 │   ├── RegistroEspecieTest.java
 │   ├── RegistroHabitatTest.java
 │   └── RegistroAnimalTest.java
+├── manueljimenez/
+│   ├── BaseTest.java      # Setup compartido (login, driver, waits)
+│   ├── RegistroTareaTest.java
+│   ├── AsignarTareaTest.java
+│   └── PlanificarRutinaTest.java
 ├── luzticona/
 ├── manueldelgadillo/
-├── manueljimenez/
 └── oscarmenacho/
 ```
 
@@ -58,6 +57,12 @@ Cada miembro del equipo trabaja en su propia carpeta. Los tests pueden usar `Bas
 
 ## Tests
 
+### jesusvelasco
 - ✅ **RegistroEspecieTest** — crear especie con datos taxonómicos
 - ✅ **RegistroHabitatTest** — crear hábitat con datos completos
 - ✅ **RegistroAnimalTest** — crear animal con nombre, especie, hábitat y fechas
+
+### manueljimenez
+- ✅ **RegistroTareaTest** — crear tarea manual desde el tablero de operaciones
+- ✅ **AsignarTareaTest** — asignar tarea a un cuidador desde la bandeja de entrada
+- ✅ **PlanificarRutinaTest** — crear rutina recurrente desde el planificador
