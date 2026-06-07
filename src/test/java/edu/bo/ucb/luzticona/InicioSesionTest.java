@@ -35,7 +35,7 @@ public class InicioSesionTest extends BaseTest {
         driver.get(BASE_URL + "/login");
         sleep();
 
-        // Paso 2: Ingresar correo y contrasena correctos
+        // Paso 2: Ingresar correo y contrasena 
         driver.findElement(By.id("Usuario")).sendKeys(email);
         driver.findElement(By.cssSelector(".p-password-input")).sendKeys(password);
 

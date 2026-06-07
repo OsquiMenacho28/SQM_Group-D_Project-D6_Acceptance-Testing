@@ -37,7 +37,6 @@ public class RegistroUsuarioTest extends BaseTest {
         driver.get(BASE_URL + "/registro");
         sleep();
 
-        // Paso 2: Completar todos los campos con datos validos
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("email")).sendKeys(email);
         driver.findElement(By.id("password")).sendKeys(password);
