@@ -16,7 +16,7 @@ Pruebas de aceptación automatizadas con Selenium WebDriver + TestNG para el pro
 - Java 17 o superior
 - Maven 3+
 - Google Chrome instalado
-- Backend de Zoo Connect corriendo en `http://localhost:4200`
+- Frontend y Backend de Zoo Connect corriendo en `http://localhost:4200` y `http://localhost:8000` respectivamente
 
 ## Ejecutar tests
 
@@ -31,11 +31,11 @@ mvn test -Dtest="edu.bo.ucb.miembro.*"
 mvn test -Dtest=RegistroTareaTest
 ```
 
-Los tests se auto-descubren. Solo creá tu archivo `*Test.java` en tu carpeta y maven lo agarra solo. Tests con dependencias usan `dependsOnGroups` en lugar de orden explícito.
+Los tests se auto-descubren. Solo crea tu archivo `*Test.java` en tu carpeta y maven lo agarra solo. Tests con dependencias usan `dependsOnGroups` en lugar de orden explícito.
 
 ## Estructura
 
-```
+```bash
 src/test/java/edu/bo/ucb/
 ├── ejemplos/              # Tests de ejemplo (no se ejecutan en suite)
 ├── jesusvelasco/
@@ -52,7 +52,7 @@ Cada miembro del equipo trabaja en su propia carpeta. Los tests pueden usar `Bas
 ## Tests
 
 ### jesusvelasco
+
 - ✅ **RegistroEspecieTest** — crear especie con datos taxonómicos
 - ✅ **RegistroHabitatTest** — crear hábitat con datos completos
 - ✅ **RegistroAnimalTest** — crear animal con nombre, especie, hábitat y fechas
-
