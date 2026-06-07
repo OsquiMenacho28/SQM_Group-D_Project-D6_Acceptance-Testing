@@ -44,12 +44,32 @@ src/test/java/edu/bo/ucb/
 │   ├── RegistroHabitatTest.java
 │   └── RegistroAnimalTest.java
 ├── luzticona/
+├── manueldelgadillo/
+│   ├── BaseTest.java
+│   ├── Cp31TipoAtencionTest.java
+│   ├── Cp32ConsultaClinicaTest.java
+│   ├── Cp45CerrarHistorialTest.java
+│   └── README.md
 └── oscarmenacho/
 ```
 
 Cada miembro del equipo trabaja en su propia carpeta. Los tests pueden usar `BaseTest` como clase base para login y setup automático de ChromeDriver.
 
 ## Tests
+
+### manueldelgadillo (Gestión Clínica — Módulo 3)
+
+Requisitos: ZooConnect en `:4200` / `:8000`, vet `vet@zconnect.com` / `vetABC123!` con `role_id=4`, al menos un animal.
+
+```bash
+mvn test -Dtest="edu.bo.ucb.manueldelgadillo.*"
+```
+
+- ✅ **Cp31TipoAtencionTest** — CP31: crear tipo de atención
+- ✅ **Cp32ConsultaClinicaTest** — CP32: registrar consulta clínica
+- ✅ **Cp45CerrarHistorialTest** — CP45: cerrar historial clínico
+
+Instrucciones detalladas: [`src/test/java/edu/bo/ucb/manueldelgadillo/README.md`](src/test/java/edu/bo/ucb/manueldelgadillo/README.md)
 
 ### jesusvelasco
 
