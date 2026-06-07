@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterTest;   // ← Cambiado
+import org.testng.annotations.BeforeTest;  // ← Cambiado
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -20,7 +20,7 @@ public abstract class BaseTest {
     protected static String createdUsuarioEmail;
     protected static String createdUsuarioUsername;
 
-    @BeforeClass
+    @BeforeTest   // ← Ahora es @BeforeTest
     public void setUp() throws Exception {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -63,7 +63,7 @@ public abstract class BaseTest {
         }
     }
 
-    @AfterClass
+    @AfterTest   // ← Ahora es @AfterTest
     public void tearDown() throws Exception {
         if (driver != null) {
             driver.quit();
