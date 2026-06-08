@@ -10,8 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -48,7 +48,7 @@ public class TestCase58Test {
 
     private WebDriver driver;
 
-    @BeforeTest
+    @BeforeClass
     public void setDriver() throws Exception {
 
         String path = "D:\\Users\\usuario\\chromedriver-win64\\chromedriver.exe";
@@ -62,7 +62,7 @@ public class TestCase58Test {
         driver.manage().window().maximize();
     }
 
-    @AfterTest
+    @AfterClass
     public void closeDriver() throws Exception {
         driver.quit();
     }
