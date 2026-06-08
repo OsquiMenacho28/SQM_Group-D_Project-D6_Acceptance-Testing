@@ -236,12 +236,20 @@ public class TestCase48Test {
 
         // Buscar el elemento que contiene la descripción detallada de la nueva categoría en la lista
         WebElement newTypeDescriptionInList = driver.findElement(By.xpath("//h3[text()='" + newCategoryName + "']/ancestor::zoo-tipo-item//p[@class='descripcion']"));
+
+        // Scroll al elemento para forzar render y luego leer el texto
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", newTypeDescriptionInList);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         String typeDescriptionText = newTypeDescriptionInList.getText();
         System.out.println("Descripción encontrada en la lista: " + typeDescriptionText);
 
         // Verificar que el nombre y la descripción detallada de la nueva categoría es visible en la lista
         Assert.assertTrue(newTypeInList.isDisplayed(), "El nuevo tipo de producto no es visible en la lista.");
-        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", newTypeDescriptionInList);
         Assert.assertTrue(newTypeDescriptionInList.isDisplayed(), "La descripción de la nueva categoría no es visible en la lista.");
 
         // Verificar que el nombre y la descripción detallada de la categoría creada coincide con el ingresado
