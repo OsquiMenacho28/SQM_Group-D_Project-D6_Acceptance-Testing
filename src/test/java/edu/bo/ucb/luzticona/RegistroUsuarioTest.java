@@ -34,7 +34,7 @@ public class RegistroUsuarioTest extends BaseTest {
 
         //  2. LOGICA DE LA PRUEBA 
         // Paso 1: Navegar a la pagina de registro
-        driver.get(BASE_URL + "/registro");
+        driver.get(BASE_URL + "/signup");
         sleep();
 
         driver.findElement(By.id("username")).sendKeys(username);
@@ -42,8 +42,8 @@ public class RegistroUsuarioTest extends BaseTest {
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("confirmPassword")).sendKeys(password);
 
-        // Paso 3: Hacer clic en el boton 'Crear cuenta'
-        driver.findElement(By.xpath("//button[contains(text(),'Crear cuenta')]")).click();
+        // Paso 3: Hacer clic en el boton 'Crear Cuenta'
+        driver.findElement(By.xpath("//button[contains(text(),'Crear Cuenta')]")).click();
         sleep();
 
         //  3.ASSERT
