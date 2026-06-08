@@ -41,8 +41,8 @@ public class AdminCrearUsuarioTest extends BaseTest {
         // Paso 3: Navegar a Gestion de Usuarios
         navigateToGestionUsuarios();
 
-        // Presionar el boton "Nuevo Usuario"
-        driver.findElement(By.xpath("//span[text()='Nuevo Usuario']/ancestor::button")).click();
+        // Presionar el boton "Crear Usuario"
+        driver.findElement(By.xpath("//span[text()='Crear Usuario']/ancestor::button")).click();
         sleep();
 
         // Paso 4: Completar datos y asignar rol 'Veterinario'
