@@ -66,7 +66,7 @@ public class TestCase48Test {
         //********** 1. Preparación de la Prueba **********//
 
         // Nombre y descripción detallada de la nueva categoría que se va a crear
-        String newCategoryName = "Suplementos Medicos";
+        String newCategoryName = "Suplementos Medicos " + System.currentTimeMillis();
         String newCategoryDescription = "Productos diseñados para complementar la dieta y apoyar la salud general.";
 
         // Paso 1. Ingresar a la pagina principal de la aplicación

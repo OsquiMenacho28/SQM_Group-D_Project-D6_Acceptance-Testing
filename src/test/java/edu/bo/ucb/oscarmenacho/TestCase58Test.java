@@ -166,7 +166,7 @@ public class TestCase58Test {
         // Paso 3. Anotar el stock actual de los productos de la dieta del animal (valores previos a la tarea)
         WebElement dietProductStockElement = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/div/app-gestion-inventario/zoo-splitter-layout/div/p-splitter/div[3]/div/p-scrollpanel/div[1]/div/div/div/zoo-main-container/div/app-lista-producto/div/p-dataview/div[2]/zoo-producto-item/div/div[2]/div[2]/div[1]/span[2]"));
         String previousStockText = dietProductStockElement.getText();
-        int previousStock = Integer.parseInt(previousStockText.trim());
+        int previousStock = Integer.parseInt(previousStockText.replaceAll("[^0-9]", ""));
         System.out.println("Stock previo a la tarea de alimentación: " + previousStock);
 
         // Paso 4. Iniciar sesión como Cuidador
@@ -381,7 +381,7 @@ public class TestCase58Test {
         // Obtener el stock actual del producto después de la ejecución de la tarea
         WebElement productStockAfterElement = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/div/app-gestion-inventario/zoo-splitter-layout/div/p-splitter/div[3]/div/p-scrollpanel/div[1]/div/div/div/zoo-main-container/div/app-lista-producto/div/p-dataview/div[2]/zoo-producto-item/div/div[2]/div[2]/div[1]/span[2]"));
         String stockAfterText = productStockAfterElement.getText();
-        int stockAfter = Integer.parseInt(stockAfterText.trim());
+        int stockAfter = Integer.parseInt(stockAfterText.replaceAll("[^0-9]", ""));
         System.out.println("Stock después de la tarea de alimentación: " + stockAfter);
 
         //********** 3. Verificación de la situación esperada - Assert **********//
