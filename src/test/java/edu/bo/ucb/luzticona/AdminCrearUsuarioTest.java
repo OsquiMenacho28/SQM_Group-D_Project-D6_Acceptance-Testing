@@ -52,7 +52,7 @@ public class AdminCrearUsuarioTest extends BaseTest {
         // Seleccionar rol Veterinario
         driver.findElement(By.id("rol")).click();
         sleep();
-        driver.findElement(By.xpath("//li[contains(text(),'Veterinario')]")).click();
+        driver.findElement(By.xpath("//li[@role='option'][contains(., 'Veterinario')]")).click();
         sleep();
 
         // Paso 5: Crear
