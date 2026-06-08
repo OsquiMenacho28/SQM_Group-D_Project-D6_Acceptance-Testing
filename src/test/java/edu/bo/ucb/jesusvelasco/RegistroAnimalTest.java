@@ -2,6 +2,7 @@ package edu.bo.ucb.jesusvelasco;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import edu.bo.ucb.jesusvelasco.BaseTest;
@@ -25,7 +26,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 public class RegistroAnimalTest extends BaseTest {
 
     @Test(dependsOnGroups = {"setup"})
-    public void registroAnimalConDatosCompletos() {
+    public void registroAnimalConDatosCompletos(ITestContext context) {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
 
@@ -68,7 +69,7 @@ public class RegistroAnimalTest extends BaseTest {
         driver.findElement(By.id("especieId")).click();
         sleep();
         driver.findElement(By.xpath("//input[@placeholder='Buscar especie']"))
-            .sendKeys(createdEspecieNombre);
+            .sendKeys((String) context.getSuite().getAttribute("especieNombre"));
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();
@@ -77,7 +78,7 @@ public class RegistroAnimalTest extends BaseTest {
         driver.findElement(By.id("habitatId")).click();
         sleep();
         driver.findElement(By.xpath("//input[@placeholder='Buscar h\u00e1bitat']"))
-            .sendKeys(createdHabitatNombre);
+            .sendKeys((String) context.getSuite().getAttribute("habitatNombre"));
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();

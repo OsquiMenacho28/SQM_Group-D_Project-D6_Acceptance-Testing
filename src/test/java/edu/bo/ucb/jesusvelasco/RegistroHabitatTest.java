@@ -2,6 +2,7 @@ package edu.bo.ucb.jesusvelasco;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import edu.bo.ucb.jesusvelasco.BaseTest;
@@ -24,7 +25,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 public class RegistroHabitatTest extends BaseTest {
 
     @Test(priority = 2, groups = {"setup"})
-    public void registroHabitatConDatosCompletos() {
+    public void registroHabitatConDatosCompletos(ITestContext context) {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
 
@@ -55,7 +56,7 @@ public class RegistroHabitatTest extends BaseTest {
 
         // Paso 3. Llenar todos los campos requeridos
         String nombreHabitat = "Sabana " + ts;
-        createdHabitatNombre = nombreHabitat;
+        context.getSuite().setAttribute("habitatNombre", nombreHabitat);
 
         driver.findElement(By.id("nombre")).sendKeys(nombreHabitat);
         driver.findElement(By.id("tipo")).sendKeys("Tropical");

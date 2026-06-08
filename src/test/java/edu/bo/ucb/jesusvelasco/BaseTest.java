@@ -17,9 +17,6 @@ public abstract class BaseTest {
     protected static final String EMAIL = "admin@zconnect.com";
     protected static final String PASSWORD = "admin123";
 
-    protected static String createdEspecieNombre;
-    protected static String createdHabitatNombre;
-
     @BeforeClass
     public void setUp() throws Exception {
         WebDriverManager.chromedriver().setup();
