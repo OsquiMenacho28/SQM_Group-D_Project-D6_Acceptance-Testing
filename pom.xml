@@ -45,6 +45,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.4</version>
                 <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                     <excludes>
                         <exclude>edu/bo/ucb/ejemplos/**</exclude>
                     </excludes>
