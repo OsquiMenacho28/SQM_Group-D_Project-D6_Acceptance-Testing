@@ -17,10 +17,11 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 // de otros tests. Tematica: Panda Gigante
 //
 // Paso 1. Iniciar sesion como administrador
-// Paso 2. Crear una nueva especie (Panda Gigante)
-// Paso 3. Crear un nuevo habitat (Bosque de Bambu)
-// Paso 4. Crear un nuevo animal (Sombra) asociado a especie y habitat creados
-// Paso 5. Verificar que el animal aparece en la lista
+// Paso 2. Navegar al modulo Gestion de Animales
+// Paso 3. Crear una nueva especie (Panda Gigante)
+// Paso 4. Crear un nuevo habitat (Bosque de Bambu)
+// Paso 5. Crear un nuevo animal (Sombra) asociado a especie y habitat creados
+// Paso 6. Verificar que el animal aparece en la lista
 //
 // Resultado Esperado: El animal se crea exitosamente y aparece en la lista
 /****************************************/
@@ -33,7 +34,7 @@ public class RegistroAnimalTest extends BaseTest {
         String ts = String.valueOf(startTime);
 
         // ========================================
-        // PARTE 1: CREAR ESPECIE PANDA GIGANTE
+        // NAVEGAR AL MODULO GESTION DE ANIMALES
         // ========================================
 
         driver.findElement(By.xpath("//zoo-profile-button//button")).click();
@@ -52,6 +53,10 @@ public class RegistroAnimalTest extends BaseTest {
 
         driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
         sleep();
+
+        // ========================================
+        // PARTE 1: CREAR ESPECIE PANDA GIGANTE
+        // ========================================
 
         driver.findElement(
             By.xpath("//span[text()='A\u00f1adir Especie']/ancestor::button")
@@ -74,23 +79,6 @@ public class RegistroAnimalTest extends BaseTest {
         // PARTE 2: CREAR HABITAT DE BAMBU
         // ========================================
 
-        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
-        sleep();
-
-        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
-        sleep();
-
-        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
-        sleep();
-
-        driver.findElement(
-            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::li")
-        ).click();
-        sleep();
-
-        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
-        sleep();
-
         driver.findElement(
             By.xpath("//span[text()='A\u00f1adir H\u00e1bitat']/ancestor::button")
         ).click();
@@ -108,23 +96,6 @@ public class RegistroAnimalTest extends BaseTest {
         // ========================================
         // PARTE 3: CREAR ANIMAL SOMBRA
         // ========================================
-
-        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
-        sleep();
-
-        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
-        sleep();
-
-        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
-        sleep();
-
-        driver.findElement(
-            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::li")
-        ).click();
-        sleep();
-
-        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
-        sleep();
 
         driver.findElement(
             By.xpath("//span[text()='A\u00f1adir Animal']/ancestor::button")
