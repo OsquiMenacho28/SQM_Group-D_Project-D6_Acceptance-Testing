@@ -54,16 +54,16 @@ public class RegistroEspecieTest extends BaseTest {
         sleep();
 
         // Paso 3. Llenar todos los campos taxonomicos requeridos
-        String nombreComun = "Leon " + ts;
+        String nombreComun = "Panda " + ts;
         TestData.especieNombre = nombreComun;
 
-        driver.findElement(By.id("nombreCientifico")).sendKeys("Panthera leo " + ts);
+        driver.findElement(By.id("nombreCientifico")).sendKeys("Ailuropoda melanoleuca " + ts);
         driver.findElement(By.id("nombreComun")).sendKeys(nombreComun);
         driver.findElement(By.id("filo")).sendKeys("Chordata");
         driver.findElement(By.id("clase")).sendKeys("Mammalia");
         driver.findElement(By.id("orden")).sendKeys("Carnivora");
-        driver.findElement(By.id("familia")).sendKeys("Felidae");
-        driver.findElement(By.id("descripcion")).sendKeys("Gran felino africano cazador");
+        driver.findElement(By.id("familia")).sendKeys("Ursidae");
+        driver.findElement(By.id("descripcion")).sendKeys("Oso nativo de China conocido por su pelaje blanco y negro");
 
         // Paso 4. Enviar el formulario
         driver.findElement(By.xpath("//span[text()='Crear Especie']/ancestor::button")).click();

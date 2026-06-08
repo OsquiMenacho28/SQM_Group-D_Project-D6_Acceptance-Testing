@@ -54,13 +54,13 @@ public class RegistroHabitatTest extends BaseTest {
         sleep();
 
         // Paso 3. Llenar todos los campos requeridos
-        String nombreHabitat = "Sabana " + ts;
+        String nombreHabitat = "Sombra " + ts;
         TestData.habitatNombre = nombreHabitat;
 
         driver.findElement(By.id("nombre")).sendKeys(nombreHabitat);
-        driver.findElement(By.id("tipo")).sendKeys("Tropical");
-        driver.findElement(By.id("descripcion")).sendKeys("Sabana africana con clima calido y vegetacion dispersa");
-        driver.findElement(By.id("condicionesClimaticas")).sendKeys("Calido y seco");
+        driver.findElement(By.id("tipo")).sendKeys("Bosque Templado");
+        driver.findElement(By.id("descripcion")).sendKeys("Bosque templado con densa vegetacion y clima humedo");
+        driver.findElement(By.id("condicionesClimaticas")).sendKeys("Frio y humedo");
 
         // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
         driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();

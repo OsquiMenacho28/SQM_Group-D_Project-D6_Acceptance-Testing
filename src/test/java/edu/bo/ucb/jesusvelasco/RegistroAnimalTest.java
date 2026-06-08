@@ -58,9 +58,9 @@ public class RegistroAnimalTest extends BaseTest {
         sleep();
 
         // Paso 3. Llenar todos los campos requeridos
-        String nombreAnimal = "Simba " + ts;
+        String nombreAnimal = "Panda Sombra " + ts;
         driver.findElement(By.id("nombre")).sendKeys(nombreAnimal);
-        driver.findElement(By.id("procedencia")).sendKeys("Sabana");
+        driver.findElement(By.id("procedencia")).sendKeys("China");
 
         driver.findElement(By.id("fechaNac")).sendKeys("2026-06-19");
         sleep();
@@ -85,7 +85,7 @@ public class RegistroAnimalTest extends BaseTest {
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();
 
-        driver.findElement(By.id("descripcion")).sendKeys("Un leon majestuoso de la sabana africana");
+        driver.findElement(By.id("descripcion")).sendKeys("Un panda gigante de los bosques templados de China");
 
         // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
         driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
