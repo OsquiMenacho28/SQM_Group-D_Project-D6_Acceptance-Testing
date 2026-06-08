@@ -83,7 +83,7 @@ public class TestCase48Test {
         System.out.println("Pagina principal cargada...");
 
         // Iniciar sesión como Administrador
-        WebElement loginButton = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/div[1]/p-button[1]/button"));
+        WebElement loginButton = driver.findElement(By.xpath("//zoo-header//span[text()='Iniciar Sesión']/ancestor::button"));
         loginButton.click();
 
         try {
