@@ -91,9 +91,13 @@ public class AsignarTareaTest extends BaseTest {
         waitForInvisible(By.cssSelector(".p-dialog-mask"));
         sleep();
 
+        // Scroll al tope para que el botón Actualizar sea visible
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
+        sleep();
+
         // Refrescar el tablero
         driver.findElement(By.xpath("//span[text()='Actualizar']/ancestor::button")).click();
-        waitForVisible(By.xpath("//section[contains(@class, 'radar-panel')]//*[contains(text(), '" + tituloTarea + "')]"));
+        waitForVisible(By.xpath("//section[contains(@class, 'radar-panel')]//*[contains(., '" + tituloTarea + "')]"));
 
         long elapsed = System.currentTimeMillis() - startTime;
 
