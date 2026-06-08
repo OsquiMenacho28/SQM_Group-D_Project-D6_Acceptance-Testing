@@ -28,6 +28,10 @@ public class RegistroHabitatTest extends BaseTest {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
 
+        // 1. PREPARACIÓN DE LA PRUEBA
+        // (los datos del habitat se generan en el Paso 3)
+
+        // 2. LÓGICA DE LA PRUEBA
         // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
         // Paso 2. Navegar por la UI hasta el formulario de creacion de habitat
@@ -66,6 +70,7 @@ public class RegistroHabitatTest extends BaseTest {
         driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
         sleep();
 
+        // 3. VERIFICACIÓN DEL RESULTADO ESPERADO / ASSERT
         // Paso 5. Verificar en la lista de habitats
         driver.findElement(
             By.xpath("//span[text()='Lista de H\u00e1bitats']/ancestor::button")
