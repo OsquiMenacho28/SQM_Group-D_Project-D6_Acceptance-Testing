@@ -255,11 +255,11 @@ public class TestCase58Test {
             taskCard.findElement(By.xpath(".//button[contains(@class, 'assign-btn')]")).click();
             sleep(3);
 
-            // Seleccionar cuidador en el diálogo de asignación
+            // Seleccionar cuidador específico (keeper@zconnect.com) en el diálogo de asignación
             driver.findElement(By.id("caretaker")).click();
-            waitForVisible(By.cssSelector("li[role='option']:not(.p-select-empty-message)"));
+            waitForVisible(By.xpath("//li[@role='option'][contains(., 'keeper@zconnect.com')]"));
             sleep(2);
-            driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
+            driver.findElement(By.xpath("//li[@role='option'][contains(., 'keeper@zconnect.com')]")).click();
             sleep(2);
 
             // Confirmar asignación
