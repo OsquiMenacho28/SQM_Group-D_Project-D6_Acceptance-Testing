@@ -45,7 +45,7 @@ public class RegistroHabitatTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
+        driver.findElement(By.xpath("//button[@data-pc-name=\"pcclosebutton\"]")).click();
         sleep();
 
         driver.findElement(
