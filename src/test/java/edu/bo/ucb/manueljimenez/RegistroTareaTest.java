@@ -2,7 +2,6 @@ package edu.bo.ucb.manueljimenez;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /****************************************/
@@ -18,7 +17,8 @@ import org.testng.annotations.Test;
 // Paso 4. Llenar todos los campos requeridos
 // Paso 5. Guardar la tarea
 //
-//       Resultado Esperado: La tarea aparece en la bandeja de entrada del tablero
+//      Resultado Esperado: La tarea aparece en la bandeja de entrada del tablero
+/****************************************/
 
 public class RegistroTareaTest extends BaseTest {
 
@@ -63,29 +63,17 @@ public class RegistroTareaTest extends BaseTest {
         // Paso 6. Guardar la tarea
         driver.findElement(By.xpath("//span[text()='Crear Tarea']/ancestor::button")).click();
 
-        // Esperar a que el formulario desaparezca del DOM de forma limpia
-        waitForInvisible(By.id("titulo"));
-        
-        // LE DAMOS AIRE AL BACKEND: Agregamos una pausa estratégica extra aquí 
-        // para garantizar que la base de datos termine de registrar la tarea antes de pedir la lista actualizada
+        // Esperar a que el dialogo se cierre antes de interactuar con la pantalla
+        waitForInvisible(By.cssSelector(".p-dialog-mask"));
         sleep();
-        sleep(); 
 
-        // Refrescar la bandeja de entrada ahora que la base de datos ya asentó el registro
+        // Refrescar la bandeja de entrada
         driver.findElement(By.xpath("//span[text()='Actualizar']/ancestor::button")).click();
-        
-        // Guardamos el localizador de la tarea creada para usarlo en la espera y en la aserción
-        By nuevaTareaLocator = By.xpath("//h4[contains(@class, 'task-title') and contains(., '" + tituloTarea + "')]");
-        waitForVisible(nuevaTareaLocator);
-
-        // ********** VERIFICACIÓN FORMAL (Assert) **********
-        // Validamos que el elemento realmente exista y esté visible en el DOM para cerrar el test con éxito legítimo
-        WebElement tareaCreada = driver.findElement(nuevaTareaLocator);
-        Assert.assertTrue(tareaCreada.isDisplayed(), "Error: ¡La tarea creada '" + tituloTarea + "' no se visualiza en el tablero!");
+        waitForVisible(By.xpath("//h4[contains(@class, 'task-title') and contains(., '" + tituloTarea + "')]"));
 
         long elapsed = System.currentTimeMillis() - startTime;
 
-        System.out.println("Tarea creada exitosamente: " + tituloTarea);
+        System.out.println("Tarea creada: " + tituloTarea);
         System.out.println("Tiempo de ejecucion: " + elapsed + " ms");
     }
 }

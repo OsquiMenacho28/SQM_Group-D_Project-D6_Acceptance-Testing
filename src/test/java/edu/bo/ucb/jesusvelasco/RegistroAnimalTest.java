@@ -24,7 +24,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroAnimalTest extends BaseTest {
 
-    @Test(priority = 3)
+    @Test(dependsOnGroups = {"setup"})
     public void registroAnimalConDatosCompletos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);

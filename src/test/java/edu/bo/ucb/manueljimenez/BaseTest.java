@@ -19,7 +19,7 @@ public abstract class BaseTest {
     protected static final String BASE_URL = "http://localhost:4200";
     protected static final String EMAIL = "admin@zconnect.com";
     protected static final String PASSWORD = "admin123";
-    protected WebDriverWait wait;
+
     protected static String createdTaskTitulo;
 
     @BeforeClass

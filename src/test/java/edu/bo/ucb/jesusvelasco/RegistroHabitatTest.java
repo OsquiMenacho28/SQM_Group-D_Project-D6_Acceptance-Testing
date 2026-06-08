@@ -23,7 +23,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroHabitatTest extends BaseTest {
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = {"setup"})
     public void registroHabitatConDatosCompletos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);

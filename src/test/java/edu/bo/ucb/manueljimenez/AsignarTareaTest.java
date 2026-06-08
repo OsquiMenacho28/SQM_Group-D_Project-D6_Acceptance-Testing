@@ -5,113 +5,99 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-/******************************************************************************
- * Historia de Usuario: Como administrador del zoológico quiero asignar una tarea
- * a un cuidador específico desde la bandeja de entrada, con un flujo de 
- * creación y asignación pausado y seguro.
- ******************************************************************************/
+/****************************************/
+// Historia de Usuario: Como administrador del zoologico quiero asignar una tarea
+// a un cuidador especifico desde la bandeja de entrada
+//
+// Prueba de Aceptacion: Verificar que una tarea pendiente se asigne exitosamente
+// a un cuidador y aparezca en la seccion de asignadas hoy
+//
+// Paso 1. Iniciar sesion como administrador
+// Paso 2. Navegar al tablero de operaciones
+// Paso 3. Identificar la tarea creada previamente en la bandeja de entrada
+// Paso 4. Hacer clic en Asignar y seleccionar un cuidador
+// Paso 5. Confirmar la asignacion
+//
+//      Resultado Esperado: La tarea aparece en la seccion de tareas asignadas hoy
+//
+// PRECONDICION: Debe existir al menos un usuario con rol de cuidador en el sistema
+/****************************************/
+
 public class AsignarTareaTest extends BaseTest {
 
-    // Método auxiliar para escribir como humano (evita errores de renderizado de JS)
-    private void escribirLento(By locator, String texto) {
-        WebElement element = driver.findElement(locator);
-        for (char c : texto.toCharArray()) {
-            element.sendKeys(String.valueOf(c));
-            try { Thread.sleep(100); } catch (InterruptedException e) {}
-        }
-    }
-
-    @Test(priority = 2, description = "Verificar la asignación exitosa de una tarea con flujo pausado")
+    @Test(priority = 2)
     public void asignarTareaACuidador() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
-        String tituloTarea = "Tarea " + ts;
 
-        // Paso 1. Inicio de sesión realizado por BaseTest.setUp()
+        // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
-        // Paso 2. Navegar hasta el módulo de Gestión de Tareas
+        // Paso 2. Navegar hasta el modulo de Gestion de Tareas
         navigateToGestionTareas();
 
         // Paso 3. Abrir el tablero de operaciones
-        By btnTablero = By.xpath("//app-nav-menu-gestion//span[text()='Tablero de Operaciones']/ancestor::button");
-        waitForVisible(btnTablero);
-        driver.findElement(btnTablero).click();
-        
-        // Pausa breve para permitir la carga del tablero
-        try { Thread.sleep(500); } catch (InterruptedException e) {}
+        driver.findElement(
+            By.xpath("//app-nav-menu-gestion//span[text()='Tablero de Operaciones']/ancestor::button")
+        ).click();
+        sleep();
 
-        // Paso 4. Crear una tarea manual con ritmo normal
-        By btnCrearManual = By.xpath("//span[text()='Crear Tarea Manual']/ancestor::button");
-        waitForVisible(btnCrearManual);
-        driver.findElement(btnCrearManual).click();
+        // Paso 4. Crear una tarea manual para asignar
+        driver.findElement(
+            By.xpath("//span[text()='Crear Tarea Manual']/ancestor::button")
+        ).click();
+        sleep();
 
-        // Llenar el formulario con calma
-        By txtTitulo = By.id("titulo");
-        waitForVisible(txtTitulo); 
-        escribirLento(txtTitulo, tituloTarea); // <-- Escritura humana
-        
-        try { Thread.sleep(300); } catch (InterruptedException e) {}
+        String tituloTarea = "Tarea para asignar " + ts;
+        driver.findElement(By.id("titulo")).sendKeys(tituloTarea);
+        sleep();
 
-        By txtDesc = By.id("desc");
-        escribirLento(txtDesc, "Tarea creada paso a paso para el flujo de asignacion");
+        driver.findElement(By.id("desc")).sendKeys("Tarea creada para probar el flujo de asignacion");
+        sleep();
 
-        // Selección de tipo de tarea
-        By ddlTipo = By.id("tipo");
-        waitForVisible(ddlTipo); 
-        driver.findElement(ddlTipo).click();
-        
-        try { Thread.sleep(400); } catch (InterruptedException e) {} // Pausa antes de seleccionar
+        driver.findElement(By.id("tipo")).click();
+        sleep();
+        driver.findElement(By.xpath("//li[@role='option'][contains(., 'Alimentacion')]")).click();
+        sleep();
 
-        By optAlimentacion = By.xpath("//li[@role='option'][contains(., 'Alimentacion')]");
-        waitForVisible(optAlimentacion);
-        driver.findElement(optAlimentacion).click();
-
-        // Enviar formulario
         driver.findElement(By.xpath("//span[text()='Crear Tarea']/ancestor::button")).click();
-        waitForInvisible(txtTitulo); // Esperamos a que cierre el modal
 
-        // Sincronización: Actualizar bandeja
-        By btnActualizar = By.xpath("//span[text()='Actualizar']/ancestor::button");
-        waitForVisible(btnActualizar);
-        driver.findElement(btnActualizar).click();
-        
-        try { Thread.sleep(1000); } catch (InterruptedException e) {} // Esperar refresco de datos
+        waitForInvisible(By.cssSelector(".p-dialog-mask"));
+        sleep();
 
-        // Paso 5. Buscar y asignar
-        By xpathTaskTitle = By.xpath("//h4[contains(@class, 'task-title') and contains(., '" + tituloTarea + "')]");
-        WebElement taskTitleElement = waitForVisible(xpathTaskTitle);
-        
-        WebElement taskCard = taskTitleElement.findElement(By.xpath("./ancestor::div[contains(@class, 'task-card')]"));
+        // Refrescar la bandeja de entrada
+        driver.findElement(By.xpath("//span[text()='Actualizar']/ancestor::button")).click();
+
+        // Paso 5. Buscar la tarea en la bandeja de entrada y hacer clic en Asignar
+        waitForVisible(By.xpath("//h4[contains(@class, 'task-title') and contains(., '" + tituloTarea + "')]"));
+        WebElement taskCard = driver.findElement(
+            By.xpath("//h4[contains(@class, 'task-title') and contains(., '" + tituloTarea + "')]/ancestor::div[contains(@class, 'task-card')]")
+        );
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", taskCard);
+        sleep();
 
-        By btnAsignarEnCard = By.xpath(".//button[contains(@class, 'assign-btn')]");
-        taskCard.findElement(btnAsignarEnCard).click();
+        taskCard.findElement(By.xpath(".//button[contains(@class, 'assign-btn')]")).click();
+        sleep();
 
-// Paso 6. Seleccionar cuidador específico ("iv") usando el buscador
-        String nombreCuidador = "iv"; // Definimos a quién buscamos
-        
-        By ddlCaretaker = By.id("caretaker");
-        waitForVisible(ddlCaretaker);
-        driver.findElement(ddlCaretaker).click();
-        
-        // --- AQUÍ ESTÁ EL CAMBIO: BUSCAR Y FILTRAR ---
-        // Esperamos a que aparezca el input de búsqueda dentro del dropdown
-        // (Ajusta este selector si el ID/Clase del input es diferente, pero suele ser un input dentro del panel)
-        By searchInput = By.cssSelector("input[type='text']"); 
-        waitForVisible(searchInput);
-        
-        // Escribimos el nombre del cuidador para filtrar la lista
-        driver.findElement(searchInput).sendKeys(nombreCuidador);
-        
-        // Esperamos brevemente a que el filtro de PrimeNG actúe
-        try { Thread.sleep(800); } catch (InterruptedException e) {} 
-        
-        // Buscamos específicamente la opción que contiene "iv"
-        // Usamos un XPath que busca el texto exacto o contenido
-        By optCaretaker = By.xpath("//li[contains(., '" + nombreCuidador + "')]");
-        
-        waitForVisible(optCaretaker);
-        driver.findElement(optCaretaker).click();
+        // Paso 6. Seleccionar un cuidador en el dialogo de asignacion
+        driver.findElement(By.id("caretaker")).click();
+        waitForVisible(By.cssSelector("li[role='option']:not(.p-select-empty-message)"));
+        sleep();
+        driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
+        sleep();
 
+        // Paso 7. Confirmar la asignacion
+        driver.findElement(By.xpath("//span[text()='Confirmar']/ancestor::button")).click();
+
+        waitForInvisible(By.cssSelector(".p-dialog-mask"));
+        sleep();
+
+        // Refrescar el tablero
+        driver.findElement(By.xpath("//span[text()='Actualizar']/ancestor::button")).click();
+        waitForVisible(By.xpath("//section[contains(@class, 'radar-panel')]//*[contains(text(), '" + tituloTarea + "')]"));
+
+        long elapsed = System.currentTimeMillis() - startTime;
+
+        System.out.println("Tarea asignada: " + tituloTarea);
+        System.out.println("Tiempo de ejecucion: " + elapsed + " ms");
     }
 }
