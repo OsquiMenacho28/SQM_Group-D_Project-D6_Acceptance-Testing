@@ -236,6 +236,14 @@ public class TestCase58Test {
             driver.findElement(By.xpath("//li[@role='option'][contains(., 'Alimentacion')]")).click();
             sleep(2);
 
+            // Seleccionar "Animal: Arpía" en el campo Lugar
+            driver.findElement(By.id("lugar")).click();
+            sleep(2);
+            waitForVisible(By.xpath("//li[@role='option'][contains(., 'Animal: Arpía')]"));
+            sleep(1);
+            driver.findElement(By.xpath("//li[@role='option'][contains(., 'Animal: Arpía')]")).click();
+            sleep(2);
+
             // Guardar la tarea
             driver.findElement(By.xpath("//span[text()='Crear Tarea']/ancestor::button")).click();
             waitForInvisible(By.cssSelector(".p-dialog-mask"));
