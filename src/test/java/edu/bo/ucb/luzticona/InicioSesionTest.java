@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
 
 public class InicioSesionTest extends BaseTest {
 
-    @Test(priority = 2, dependsOnMethods = { "registroUsuarioExitoso" })
+    @Test(priority = 2)
     public void inicioSesionCredencialesCorrectas() {
         long startTime = System.currentTimeMillis();
 

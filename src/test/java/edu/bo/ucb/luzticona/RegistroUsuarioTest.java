@@ -39,8 +39,8 @@ public class RegistroUsuarioTest extends BaseTest {
 
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("email")).sendKeys(email);
-        driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.id("confirmPassword")).sendKeys(password);
+        driver.findElement(By.xpath("//*[@id='password']/input")).sendKeys(password);
+        driver.findElement(By.xpath("//*[@id='confirmPassword']/input")).sendKeys(password);
 
         // Paso 3: Hacer clic en el boton 'Crear Cuenta'
         driver.findElement(By.xpath("//button[contains(text(),'Crear Cuenta')]")).click();
