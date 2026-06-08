@@ -13,18 +13,21 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 // Prueba de Aceptacion: Verificar que un animal con datos completos se registre
 // exitosamente y se muestre la confirmacion correspondiente
 //
+// Esta prueba DEPENDE de RegistroEspecieTest y RegistroHabitatTest (grupo "setup")
+// que crean la especie y el habitat necesarios.
+//
 // Paso 1. Iniciar sesion como administrador
 // Paso 2. Ingresar al formulario de creacion de animal
-// Paso 3. Llenar todos los campos requeridos (nombre, especie, habitat, descripcion)
+// Paso 3. Llenar todos los campos requeridos usando especie y habitat creados previamente
 // Paso 4. Enviar el formulario y esperar la confirmacion
+// Paso 5. Verificar que el animal aparece en la lista
 //
-        // Resultado Esperado: El animal se crea exitosamente y se muestra un mensaje de exito
-// o redireccion a la pagina de detalle
+// Resultado Esperado: El animal se crea exitosamente y aparece en la lista
 /****************************************/
 
 public class RegistroAnimalTest extends BaseTest {
 
-    @Test(priority = 3)
+    @Test(groups = {"jesusvelasco"}, dependsOnGroups = {"setup"})
     public void registroAnimalConDatosCompletos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
@@ -32,7 +35,7 @@ public class RegistroAnimalTest extends BaseTest {
         // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
         // Paso 2. Navegar por la UI hasta el formulario de creacion de animal
-        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
         sleep();
 
         driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
@@ -46,7 +49,7 @@ public class RegistroAnimalTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.cssSelector(".p-drawer-close-button button")).click();
+        driver.findElement(By.xpath("//button[@data-pc-name=\"pcclosebutton\"]")).click();
         sleep();
 
         driver.findElement(
@@ -55,34 +58,34 @@ public class RegistroAnimalTest extends BaseTest {
         sleep();
 
         // Paso 3. Llenar todos los campos requeridos
-        String nombreAnimal = "Simba " + ts;
+        String nombreAnimal = "Panda Sombra " + ts;
         driver.findElement(By.id("nombre")).sendKeys(nombreAnimal);
-        driver.findElement(By.id("procedencia")).sendKeys("Sabana");
+        driver.findElement(By.id("procedencia")).sendKeys("China");
 
         driver.findElement(By.id("fechaNac")).sendKeys("2026-06-19");
         sleep();
         driver.findElement(By.id("fechaIng")).sendKeys("2026-06-19");
         sleep();
 
-        // Seleccionar especie usando el filtro del dropdown
+        // Seleccionar especie (creada por RegistroEspecieTest)
         driver.findElement(By.id("especieId")).click();
         sleep();
-        driver.findElement(By.cssSelector(".p-select-filter[placeholder='Buscar especie']"))
-            .sendKeys(createdEspecieNombre);
+        driver.findElement(By.xpath("//input[@placeholder='Buscar especie']"))
+            .sendKeys(TestData.especieNombre);
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();
 
-        // Seleccionar habitat usando el filtro del dropdown
+        // Seleccionar habitat (creado por RegistroHabitatTest)
         driver.findElement(By.id("habitatId")).click();
         sleep();
-        driver.findElement(By.cssSelector(".p-select-filter[placeholder='Buscar h\u00e1bitat']"))
-            .sendKeys(createdHabitatNombre);
+        driver.findElement(By.xpath("//input[@placeholder='Buscar h\u00e1bitat']"))
+            .sendKeys(TestData.habitatNombre);
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();
 
-        driver.findElement(By.id("descripcion")).sendKeys("Un leon majestuoso de la sabana africana");
+        driver.findElement(By.id("descripcion")).sendKeys("Un panda gigante de los bosques templados de China");
 
         // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
         driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
@@ -94,7 +97,7 @@ public class RegistroAnimalTest extends BaseTest {
         ).click();
         sleep();
 
-        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
+        String body = driver.findElement(By.xpath("//zoo-lista-animales/div/p-dataview/div[2]")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
         System.out.println("Animal creado: " + nombreAnimal);

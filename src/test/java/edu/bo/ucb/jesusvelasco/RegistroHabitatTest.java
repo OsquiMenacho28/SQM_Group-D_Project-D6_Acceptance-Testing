@@ -23,7 +23,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroHabitatTest extends BaseTest {
 
-    @Test(priority = 2)
+    @Test(groups = {"jesusvelasco", "setup"})
     public void registroHabitatConDatosCompletos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
@@ -31,7 +31,7 @@ public class RegistroHabitatTest extends BaseTest {
         // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
         // Paso 2. Navegar por la UI hasta el formulario de creacion de habitat
-        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
         sleep();
 
         driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
@@ -45,7 +45,7 @@ public class RegistroHabitatTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.cssSelector(".p-drawer-close-button button")).click();
+        driver.findElement(By.xpath("//button[@data-pc-name=\"pcclosebutton\"]")).click();
         sleep();
 
         driver.findElement(
@@ -54,13 +54,13 @@ public class RegistroHabitatTest extends BaseTest {
         sleep();
 
         // Paso 3. Llenar todos los campos requeridos
-        String nombreHabitat = "Sabana " + ts;
-        createdHabitatNombre = nombreHabitat;
+        String nombreHabitat = "Sombra " + ts;
+        TestData.habitatNombre = nombreHabitat;
 
         driver.findElement(By.id("nombre")).sendKeys(nombreHabitat);
-        driver.findElement(By.id("tipo")).sendKeys("Tropical");
-        driver.findElement(By.id("descripcion")).sendKeys("Sabana africana con clima calido y vegetacion dispersa");
-        driver.findElement(By.id("condicionesClimaticas")).sendKeys("Calido y seco");
+        driver.findElement(By.id("tipo")).sendKeys("Bosque Templado");
+        driver.findElement(By.id("descripcion")).sendKeys("Bosque templado con densa vegetacion y clima humedo");
+        driver.findElement(By.id("condicionesClimaticas")).sendKeys("Frio y humedo");
 
         // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
         driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
@@ -72,7 +72,7 @@ public class RegistroHabitatTest extends BaseTest {
         ).click();
         sleep();
 
-        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
+        String body = driver.findElement(By.xpath("//zoo-lista-habitats/div/p-dataview/div[2]")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
         System.out.println("Habitat creado: " + nombreHabitat);

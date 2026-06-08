@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Zoo Connect Suite" verbose="1" parallel="none" thread-count="1">
+    <test name="All Tests" preserve-order="true">
+        <classes>
+            <class name="edu.bo.ucb.oscarmenacho.TestCase47Test"/>
+            <class name="edu.bo.ucb.oscarmenacho.TestCase48Test"/>
+            <class name="edu.bo.ucb.oscarmenacho.TestCase58Test"/>
+            <class name="edu.bo.ucb.manueljimenez.RegistroTareaTest"/>
+            <class name="edu.bo.ucb.manueljimenez.AsignarTareaTest"/>
+            <class name="edu.bo.ucb.manueljimenez.PlanificarRutinaTest"/>
+            <class name="edu.bo.ucb.jesusvelasco.RegistroEspecieTest"/>
+            <class name="edu.bo.ucb.jesusvelasco.RegistroHabitatTest"/>
+            <class name="edu.bo.ucb.jesusvelasco.RegistroAnimalTest"/>
+            <class name="edu.bo.ucb.manueldelgadillo.Cp31TipoAtencionTest"/>
+            <class name="edu.bo.ucb.manueldelgadillo.Cp32ConsultaClinicaTest"/>
+            <class name="edu.bo.ucb.manueldelgadillo.Cp45CerrarHistorialTest"/>
+        </classes>
+    </test>
+</suite>

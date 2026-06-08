@@ -34,9 +34,23 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>17</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.4</version>
                 <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <parallel>none</parallel>
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
                     <excludes>
                         <exclude>edu/bo/ucb/ejemplos/**</exclude>
                     </excludes>
@@ -44,4 +58,23 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>jesusvelasco</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/testng-jesusvelasco.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

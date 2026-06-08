@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Jesus Velasco Tests" verbose="1">
+    <test name="jesusvelasco" preserve-order="true">
+        <classes>
+            <class name="edu.bo.ucb.jesusvelasco.RegistroEspecieTest"/>
+            <class name="edu.bo.ucb.jesusvelasco.RegistroHabitatTest"/>
+            <class name="edu.bo.ucb.jesusvelasco.RegistroAnimalTest"/>
+        </classes>
+    </test>
+</suite>

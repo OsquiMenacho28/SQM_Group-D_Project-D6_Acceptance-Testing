@@ -23,7 +23,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroEspecieTest extends BaseTest {
 
-    @Test(priority = 1)
+    @Test(groups = {"jesusvelasco", "setup"})
     public void registroEspecieConDatosTaxonomicos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
@@ -31,7 +31,7 @@ public class RegistroEspecieTest extends BaseTest {
         // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
         // Paso 2. Navegar por la UI hasta el formulario de creacion de especie
-        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
         sleep();
 
         driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
@@ -45,7 +45,7 @@ public class RegistroEspecieTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.cssSelector(".p-drawer-close-button button")).click();
+        driver.findElement(By.xpath("//button[@data-pc-name=\"pcclosebutton\"]")).click();
         sleep();
 
         driver.findElement(
@@ -54,19 +54,19 @@ public class RegistroEspecieTest extends BaseTest {
         sleep();
 
         // Paso 3. Llenar todos los campos taxonomicos requeridos
-        String nombreComun = "Leon " + ts;
-        createdEspecieNombre = nombreComun;
+        String nombreComun = "Panda " + ts;
+        TestData.especieNombre = nombreComun;
 
-        driver.findElement(By.id("nombreCientifico")).sendKeys("Panthera leo " + ts);
+        driver.findElement(By.id("nombreCientifico")).sendKeys("Ailuropoda melanoleuca " + ts);
         driver.findElement(By.id("nombreComun")).sendKeys(nombreComun);
         driver.findElement(By.id("filo")).sendKeys("Chordata");
         driver.findElement(By.id("clase")).sendKeys("Mammalia");
         driver.findElement(By.id("orden")).sendKeys("Carnivora");
-        driver.findElement(By.id("familia")).sendKeys("Felidae");
-        driver.findElement(By.id("descripcion")).sendKeys("Gran felino africano cazador");
+        driver.findElement(By.id("familia")).sendKeys("Ursidae");
+        driver.findElement(By.id("descripcion")).sendKeys("Oso nativo de China conocido por su pelaje blanco y negro");
 
         // Paso 4. Enviar el formulario
-        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        driver.findElement(By.xpath("//span[text()='Crear Especie']/ancestor::button")).click();
         sleep();
 
         // Paso 5. Verificar en la lista de especies
@@ -75,7 +75,7 @@ public class RegistroEspecieTest extends BaseTest {
         ).click();
         sleep();
 
-        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
+        String body = driver.findElement(By.xpath("//app-lista-especies/div/p-dataview/div[2]")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
         System.out.println("Especie creada: " + nombreComun);

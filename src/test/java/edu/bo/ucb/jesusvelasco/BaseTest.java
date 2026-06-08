@@ -17,9 +17,6 @@ public abstract class BaseTest {
     protected static final String EMAIL = "admin@zconnect.com";
     protected static final String PASSWORD = "admin123";
 
-    protected static String createdEspecieNombre;
-    protected static String createdHabitatNombre;
-
     @BeforeClass
     public void setUp() throws Exception {
         WebDriverManager.chromedriver().setup();
@@ -34,7 +31,7 @@ public abstract class BaseTest {
         sleep();
 
         driver.findElement(By.id("Usuario")).sendKeys(EMAIL);
-        driver.findElement(By.cssSelector(".p-password-input")).sendKeys(PASSWORD);
+        driver.findElement(By.xpath("//input[@type='password']")).sendKeys(PASSWORD);
         driver.findElement(By.cssSelector("button[type='submit']")).click();
         sleep();
     }

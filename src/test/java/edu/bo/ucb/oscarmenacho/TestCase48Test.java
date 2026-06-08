@@ -7,8 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -40,7 +40,7 @@ public class TestCase48Test {
 
     private WebDriver driver;
 
-    @BeforeTest
+    @BeforeClass
     public void setDriver() throws Exception {
 
         String path = "D:\\Users\\usuario\\chromedriver-win64\\chromedriver.exe";
@@ -54,7 +54,7 @@ public class TestCase48Test {
         driver.manage().window().maximize();
     }
 
-    @AfterTest
+    @AfterClass
     public void closeDriver() throws Exception {
         driver.quit();
     }
@@ -66,7 +66,7 @@ public class TestCase48Test {
         //********** 1. Preparación de la Prueba **********//
 
         // Nombre y descripción detallada de la nueva categoría que se va a crear
-        String newCategoryName = "Suplementos Medicos";
+        String newCategoryName = "Suplementos Medicos " + System.currentTimeMillis();
         String newCategoryDescription = "Productos diseñados para complementar la dieta y apoyar la salud general.";
 
         // Paso 1. Ingresar a la pagina principal de la aplicación
@@ -83,7 +83,7 @@ public class TestCase48Test {
         System.out.println("Pagina principal cargada...");
 
         // Iniciar sesión como Administrador
-        WebElement loginButton = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/div[1]/p-button[1]/button"));
+        WebElement loginButton = driver.findElement(By.xpath("//zoo-header//span[text()='Iniciar Sesión']/ancestor::button"));
         loginButton.click();
 
         try {
@@ -148,10 +148,10 @@ public class TestCase48Test {
         }
         System.out.println("Menú de Panel de Administrador desplegado...");
 
-        WebElement inventoryManagementOption = driver.findElement(By.xpath("/html/body/div[1]/div[2]/zoo-sidebar-admin-menu/ul/li[4]"));
+        WebElement inventoryManagementOption = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/p-drawer/div/div[2]/zoo-sidebar-admin-menu/ul/li[4]"));
         inventoryManagementOption.click();
 
-        WebElement closeDropdownMenu = driver.findElement(By.xpath("/html/body/div[1]/div[1]/p-button/button"));
+        WebElement closeDropdownMenu = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/p-drawer/div/div[1]/p-button/button"));
         closeDropdownMenu.click();
 
         // Esperamos a que se muestre la lista de productos del inventario
@@ -230,12 +230,21 @@ public class TestCase48Test {
         // Verificar que la nueva categoría aparece en la lista de tipos de productos
 
         // Buscar el elemento que contiene el nombre de la nueva categoría en la lista
-        WebElement newTypeInList = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/div/app-gestion-inventario/zoo-splitter-layout/div/p-splitter/div[3]/div/p-scrollpanel/div[1]/div/div/div/zoo-main-container/div/app-lista-tipos/div/p-dataview/div[2]/zoo-tipo-item[1]/p-card/div/div/div/div[1]/div/h3"));
+        WebElement newTypeInList = driver.findElement(By.xpath("//h3[text()='" + newCategoryName + "']"));
         String typeText = newTypeInList.getText();
         System.out.println("Tipo encontrado en la lista: " + typeText);
 
         // Buscar el elemento que contiene la descripción detallada de la nueva categoría en la lista
-        WebElement newTypeDescriptionInList = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/div/app-gestion-inventario/zoo-splitter-layout/div/p-splitter/div[3]/div/p-scrollpanel/div[1]/div/div/div/zoo-main-container/div/app-lista-tipos/div/p-dataview/div[2]/zoo-tipo-item[1]/p-card/div/div/div/div[1]/p"));
+        WebElement newTypeDescriptionInList = driver.findElement(By.xpath("//h3[text()='" + newCategoryName + "']/ancestor::zoo-tipo-item//p[@class='descripcion']"));
+
+        // Scroll al elemento para forzar render y luego leer el texto
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", newTypeDescriptionInList);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         String typeDescriptionText = newTypeDescriptionInList.getText();
         System.out.println("Descripción encontrada en la lista: " + typeDescriptionText);
 

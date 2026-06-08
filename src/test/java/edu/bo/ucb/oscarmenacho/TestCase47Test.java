@@ -11,8 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -47,7 +47,7 @@ public class TestCase47Test {
 
     private WebDriver driver;
 
-    @BeforeTest
+    @BeforeClass
     public void setDriver() throws Exception {
 
         String path = "D:\\Users\\usuario\\chromedriver-win64\\chromedriver.exe";
@@ -61,7 +61,7 @@ public class TestCase47Test {
         driver.manage().window().maximize();
     }
 
-    @AfterTest
+    @AfterClass
     public void closeDriver() throws Exception {
         driver.quit();
     }
@@ -86,7 +86,7 @@ public class TestCase47Test {
         System.out.println("Pagina principal cargada...");
 
         // Iniciar sesión como Administrador
-        WebElement loginButton = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/div[1]/p-button[1]/button"));
+        WebElement loginButton = driver.findElement(By.xpath("//zoo-header//span[text()='Iniciar Sesión']/ancestor::button"));
         loginButton.click();
 
         try {
@@ -151,10 +151,10 @@ public class TestCase47Test {
         }
         System.out.println("Menú de Panel de Administrador desplegado...");
 
-        WebElement inventoryManagementOption = driver.findElement(By.xpath("/html/body/div[1]/div[2]/zoo-sidebar-admin-menu/ul/li[4]"));
+        WebElement inventoryManagementOption = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/p-drawer/div/div[2]/zoo-sidebar-admin-menu/ul/li[4]"));
         inventoryManagementOption.click();
 
-        WebElement closeDropdownMenu = driver.findElement(By.xpath("/html/body/div[1]/div[1]/p-button/button"));
+        WebElement closeDropdownMenu = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/p-drawer/div/div[1]/p-button/button"));
         closeDropdownMenu.click();
 
         // Esperamos a que se muestre la lista de productos
