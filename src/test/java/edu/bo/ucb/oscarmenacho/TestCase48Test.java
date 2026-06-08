@@ -241,6 +241,7 @@ public class TestCase48Test {
 
         // Verificar que el nombre y la descripción detallada de la nueva categoría es visible en la lista
         Assert.assertTrue(newTypeInList.isDisplayed(), "El nuevo tipo de producto no es visible en la lista.");
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", newTypeDescriptionInList);
         Assert.assertTrue(newTypeDescriptionInList.isDisplayed(), "La descripción de la nueva categoría no es visible en la lista.");
 
         // Verificar que el nombre y la descripción detallada de la categoría creada coincide con el ingresado

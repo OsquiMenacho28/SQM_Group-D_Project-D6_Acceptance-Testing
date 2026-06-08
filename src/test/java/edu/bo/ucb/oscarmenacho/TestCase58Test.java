@@ -113,7 +113,7 @@ public class TestCase58Test {
         System.out.println("Pagina principal de Administrador cargada...");
 
         // Hacer clic en el icono de perfil en el header (sesión de Administrador)
-        WebElement adminProfileIcon = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/zoo-profile-button/div/p-button/button"));
+        WebElement adminProfileIcon = driver.findElement(By.xpath("//zoo-profile-button//button"));
         adminProfileIcon.click();
 
         // Esperamos a que se despliegue el menu de perfil
@@ -173,7 +173,7 @@ public class TestCase58Test {
         // Cerrar sesión del Administrador
 
         // Hacer clic en el icono de perfil en el header (sesión de Administrador)
-        WebElement adminProfileIconToLogOut = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/zoo-profile-button/div/p-button/button"));
+        WebElement adminProfileIconToLogOut = driver.findElement(By.xpath("//zoo-profile-button//button"));
         adminProfileIconToLogOut.click();
 
         // Esperamos a que se despliegue el menu de perfil
@@ -216,7 +216,7 @@ public class TestCase58Test {
         System.out.println("Sesión iniciada como Cuidador...");
 
         // Hacer clic en la imagen de perfil del Cuidador en el header
-        WebElement keeperProfileIcon = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/zoo-profile-button/div/p-button/button"));
+        WebElement keeperProfileIcon = driver.findElement(By.xpath("//zoo-profile-button//button"));
         keeperProfileIcon.click();
 
         try {
@@ -288,7 +288,7 @@ public class TestCase58Test {
 
         // Paso 6. Verificar el stock de los productos de la dieta en el modulo de Inventario
         // Volver al panel del Administrador para revisar el inventario
-        WebElement keeperProfileIcon2 = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/zoo-profile-button/div/p-button/button"));
+        WebElement keeperProfileIcon2 = driver.findElement(By.xpath("//zoo-profile-button//button"));
         keeperProfileIcon2.click();
 
         try {
@@ -332,7 +332,7 @@ public class TestCase58Test {
         // Navegar al modulo de Gestión de Inventario
 
         // Hacer clic en el icono de perfil en el header (sesión de Administrador)
-        WebElement adminProfileIcon2 = driver.findElement(By.xpath("/html/body/app-root/zoo-layout/zoo-header/header/div[2]/div[2]/zoo-profile-button/div/p-button/button"));
+        WebElement adminProfileIcon2 = driver.findElement(By.xpath("//zoo-profile-button//button"));
         adminProfileIcon2.click();
 
         // Esperamos a que se despliegue el menu de perfil
