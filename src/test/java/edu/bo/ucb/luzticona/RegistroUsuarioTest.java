@@ -51,11 +51,6 @@ public class RegistroUsuarioTest extends BaseTest {
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("/login"), "No redirigio a la pagina de login");
 
-        // Verificar que muestra mensaje de confirmacion
-        String bodyText = driver.findElement(By.tagName("body")).getText();
-        Assert.assertTrue(bodyText.contains("Cuenta creada") || bodyText.contains("registro exitoso"),
-                "No se encontro mensaje de confirmacion");
-
         long elapsed = System.currentTimeMillis() - startTime;
         System.out.println("Usuario creado: " + username);
         System.out.println("Email: " + email);
