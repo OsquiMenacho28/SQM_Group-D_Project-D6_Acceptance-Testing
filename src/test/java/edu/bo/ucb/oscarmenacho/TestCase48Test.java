@@ -230,12 +230,12 @@ public class TestCase48Test {
         // Verificar que la nueva categoría aparece en la lista de tipos de productos
 
         // Buscar el elemento que contiene el nombre de la nueva categoría en la lista
-        WebElement newTypeInList = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/div/app-gestion-inventario/zoo-splitter-layout/div/p-splitter/div[3]/div/p-scrollpanel/div[1]/div/div/div/zoo-main-container/div/app-lista-tipos/div/p-dataview/div[2]/zoo-tipo-item[1]/p-card/div/div/div/div[1]/div/h3"));
+        WebElement newTypeInList = driver.findElement(By.xpath("//h3[text()='" + newCategoryName + "']"));
         String typeText = newTypeInList.getText();
         System.out.println("Tipo encontrado en la lista: " + typeText);
 
         // Buscar el elemento que contiene la descripción detallada de la nueva categoría en la lista
-        WebElement newTypeDescriptionInList = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/div/app-gestion-inventario/zoo-splitter-layout/div/p-splitter/div[3]/div/p-scrollpanel/div[1]/div/div/div/zoo-main-container/div/app-lista-tipos/div/p-dataview/div[2]/zoo-tipo-item[1]/p-card/div/div/div/div[1]/p"));
+        WebElement newTypeDescriptionInList = driver.findElement(By.xpath("//h3[text()='" + newCategoryName + "']/ancestor::zoo-tipo-item//p[@class='descripcion']"));
         String typeDescriptionText = newTypeDescriptionInList.getText();
         System.out.println("Descripción encontrada en la lista: " + typeDescriptionText);
 
