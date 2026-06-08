@@ -148,10 +148,10 @@ public class TestCase48Test {
         }
         System.out.println("Menú de Panel de Administrador desplegado...");
 
-        WebElement inventoryManagementOption = driver.findElement(By.xpath("/html/body/div[1]/div[2]/zoo-sidebar-admin-menu/ul/li[4]"));
+        WebElement inventoryManagementOption = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/p-drawer/div/div[2]/zoo-sidebar-admin-menu/ul/li[4]"));
         inventoryManagementOption.click();
 
-        WebElement closeDropdownMenu = driver.findElement(By.xpath("/html/body/div[1]/div[1]/p-button/button"));
+        WebElement closeDropdownMenu = driver.findElement(By.xpath("/html/body/app-root/app-admin-layout/div/p-drawer/div/div[1]/p-button/button"));
         closeDropdownMenu.click();
 
         // Esperamos a que se muestre la lista de productos del inventario
