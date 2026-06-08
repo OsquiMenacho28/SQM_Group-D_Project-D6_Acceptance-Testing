@@ -48,16 +48,15 @@ public class AdminCrearUsuarioTest extends BaseTest {
         // Paso 4: Completar datos y asignar rol 'Veterinario'
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("email")).sendKeys(email);
-        driver.findElement(By.id("password")).sendKeys(password);
 
         // Seleccionar rol Veterinario
-        driver.findElement(By.id("role")).click();
+        driver.findElement(By.id("rol")).click();
         sleep();
         driver.findElement(By.xpath("//li[contains(text(),'Veterinario')]")).click();
         sleep();
 
-        // Paso 5: Guardar
-        driver.findElement(By.xpath("//button[contains(text(),'Guardar')]")).click();
+        // Paso 5: Crear
+        driver.findElement(By.xpath("//span[text()='Crear']/ancestor::button")).click();
         sleep();
 
         // 3.ASSERT 
