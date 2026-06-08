@@ -34,7 +34,7 @@ public abstract class BaseTest {
         sleep();
 
         driver.findElement(By.id("Usuario")).sendKeys(EMAIL);
-        driver.findElement(By.cssSelector(".p-password-input")).sendKeys(PASSWORD);
+        driver.findElement(By.xpath("//input[@type='password']")).sendKeys(PASSWORD);
         driver.findElement(By.cssSelector("button[type='submit']")).click();
         sleep();
     }

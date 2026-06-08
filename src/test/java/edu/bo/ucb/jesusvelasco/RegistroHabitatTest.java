@@ -31,7 +31,7 @@ public class RegistroHabitatTest extends BaseTest {
         // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
         // Paso 2. Navegar por la UI hasta el formulario de creacion de habitat
-        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
         sleep();
 
         driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
@@ -45,7 +45,7 @@ public class RegistroHabitatTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.cssSelector(".p-drawer-close-button button")).click();
+        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
         sleep();
 
         driver.findElement(
@@ -72,7 +72,7 @@ public class RegistroHabitatTest extends BaseTest {
         ).click();
         sleep();
 
-        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
+        String body = driver.findElement(By.xpath("//zoo-lista-habitats/div/p-dataview/div[2]")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
         System.out.println("Habitat creado: " + nombreHabitat);

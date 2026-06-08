@@ -32,7 +32,7 @@ public class RegistroAnimalTest extends BaseTest {
         // Paso 1. La sesion ya se inicio en BaseTest.setUp()
 
         // Paso 2. Navegar por la UI hasta el formulario de creacion de animal
-        driver.findElement(By.cssSelector("zoo-profile-button button")).click();
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
         sleep();
 
         driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
@@ -46,7 +46,7 @@ public class RegistroAnimalTest extends BaseTest {
         ).click();
         sleep();
 
-        driver.findElement(By.cssSelector(".p-drawer-close-button button")).click();
+        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
         sleep();
 
         driver.findElement(
@@ -67,7 +67,7 @@ public class RegistroAnimalTest extends BaseTest {
         // Seleccionar especie usando el filtro del dropdown
         driver.findElement(By.id("especieId")).click();
         sleep();
-        driver.findElement(By.cssSelector(".p-select-filter[placeholder='Buscar especie']"))
+        driver.findElement(By.xpath("//input[@placeholder='Buscar especie']"))
             .sendKeys(createdEspecieNombre);
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
@@ -76,7 +76,7 @@ public class RegistroAnimalTest extends BaseTest {
         // Seleccionar habitat usando el filtro del dropdown
         driver.findElement(By.id("habitatId")).click();
         sleep();
-        driver.findElement(By.cssSelector(".p-select-filter[placeholder='Buscar h\u00e1bitat']"))
+        driver.findElement(By.xpath("//input[@placeholder='Buscar h\u00e1bitat']"))
             .sendKeys(createdHabitatNombre);
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
@@ -94,7 +94,7 @@ public class RegistroAnimalTest extends BaseTest {
         ).click();
         sleep();
 
-        String body = driver.findElement(By.cssSelector(".p-dataview-content")).getText();
+        String body = driver.findElement(By.xpath("//zoo-lista-animales/div/p-dataview/div[2]")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
         System.out.println("Animal creado: " + nombreAnimal);
