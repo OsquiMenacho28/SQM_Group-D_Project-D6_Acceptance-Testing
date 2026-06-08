@@ -27,7 +27,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroAnimalTest extends BaseTest {
 
-    @Test(groups = {"jesusvelasco"})
+    @Test
     public void registroAnimalAutocontenido() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);

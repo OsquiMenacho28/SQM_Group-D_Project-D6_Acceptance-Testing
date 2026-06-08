@@ -23,7 +23,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroEspecieTest extends BaseTest {
 
-    @Test(groups = {"jesusvelasco"})
+    @Test
     public void registroEspecieConDatosTaxonomicos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
