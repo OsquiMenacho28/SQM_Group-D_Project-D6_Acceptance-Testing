@@ -352,7 +352,7 @@ public class TestCase58Test {
         }
         System.out.println("Modal de Registro de Alimentación mostrado...");
 
-        WebElement consumedAmountInput = driver.findElement(By.xpath("/html/body/app-root/app-vet-layout/div/div/app-mis-tareas/p-dialog/div/div/div[2]/div/div[2]/div/div[2]/div[2]/p-inputnumber/input"));
+        WebElement consumedAmountInput = driver.findElement(By.xpath("//label[text()='Consumido (kg)']/following-sibling::p-inputnumber//input"));
         consumedAmountInput.clear();
         consumedAmountInput.sendKeys("10");
 
@@ -360,7 +360,7 @@ public class TestCase58Test {
         observationsInput.clear();
         observationsInput.sendKeys("Dieta administrada correctamente, el animal consumió toda la porción asignada.");
 
-        WebElement registerButton = driver.findElement(By.xpath("/html/body/app-root/app-vet-layout/div/div/app-mis-tareas/p-dialog/div/div/div[3]/div/p-button[2]/button"));
+        WebElement registerButton = driver.findElement(By.xpath("//p-dialog//span[text()='Registrar']/ancestor::button"));
         registerButton.click();
 
         // Esperamos a que la tarea sea procesada y marcada como completada
@@ -372,7 +372,7 @@ public class TestCase58Test {
         System.out.println("Tarea de alimentación ejecutada y marcada como completada...");
 
         // Verificar que la tarea fue marcada como completada
-        WebElement taskHistoryButton = driver.findElement(By.xpath("/html/body/app-root/app-vet-layout/div/div/app-mis-tareas/div/div[1]/div[2]/p-selectbutton/p-togglebutton[2]"));
+        WebElement taskHistoryButton = driver.findElement(By.xpath("//span[text()='Historial']/ancestor::p-togglebutton"));
         taskHistoryButton.click();
 
         // Esperamos a que el historial de tareas se muestre con la tarea actual marcada como completada
