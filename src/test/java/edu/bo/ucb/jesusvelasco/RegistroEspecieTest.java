@@ -23,7 +23,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroEspecieTest extends BaseTest {
 
-    @Test
+    @Test(groups = {"jesusvelasco", "setup"})
     public void registroEspecieConDatosTaxonomicos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
@@ -55,6 +55,7 @@ public class RegistroEspecieTest extends BaseTest {
 
         // Paso 3. Llenar todos los campos taxonomicos requeridos
         String nombreComun = "Leon " + ts;
+        TestData.especieNombre = nombreComun;
 
         driver.findElement(By.id("nombreCientifico")).sendKeys("Panthera leo " + ts);
         driver.findElement(By.id("nombreComun")).sendKeys(nombreComun);

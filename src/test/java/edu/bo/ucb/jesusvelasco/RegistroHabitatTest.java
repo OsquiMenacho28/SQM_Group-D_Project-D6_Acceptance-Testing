@@ -23,7 +23,7 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroHabitatTest extends BaseTest {
 
-    @Test
+    @Test(groups = {"jesusvelasco", "setup"})
     public void registroHabitatConDatosCompletos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
@@ -55,6 +55,7 @@ public class RegistroHabitatTest extends BaseTest {
 
         // Paso 3. Llenar todos los campos requeridos
         String nombreHabitat = "Sabana " + ts;
+        TestData.habitatNombre = nombreHabitat;
 
         driver.findElement(By.id("nombre")).sendKeys(nombreHabitat);
         driver.findElement(By.id("tipo")).sendKeys("Tropical");
