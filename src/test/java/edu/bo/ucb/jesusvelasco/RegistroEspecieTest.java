@@ -2,7 +2,6 @@ package edu.bo.ucb.jesusvelasco;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import edu.bo.ucb.jesusvelasco.BaseTest;
@@ -24,8 +23,8 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 
 public class RegistroEspecieTest extends BaseTest {
 
-    @Test(priority = 1, groups = {"setup"})
-    public void registroEspecieConDatosTaxonomicos(ITestContext context) {
+    @Test(groups = {"jesusvelasco"})
+    public void registroEspecieConDatosTaxonomicos() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
 
@@ -56,7 +55,6 @@ public class RegistroEspecieTest extends BaseTest {
 
         // Paso 3. Llenar todos los campos taxonomicos requeridos
         String nombreComun = "Leon " + ts;
-        context.getSuite().setAttribute("especieNombre", nombreComun);
 
         driver.findElement(By.id("nombreCientifico")).sendKeys("Panthera leo " + ts);
         driver.findElement(By.id("nombreComun")).sendKeys(nombreComun);

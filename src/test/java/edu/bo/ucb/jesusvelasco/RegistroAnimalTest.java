@@ -2,7 +2,6 @@ package edu.bo.ucb.jesusvelasco;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import edu.bo.ucb.jesusvelasco.BaseTest;
@@ -14,25 +13,102 @@ import edu.bo.ucb.jesusvelasco.BaseTest;
 // Prueba de Aceptacion: Verificar que un animal con datos completos se registre
 // exitosamente y se muestre la confirmacion correspondiente
 //
-// Paso 1. Iniciar sesion como administrador
-// Paso 2. Ingresar al formulario de creacion de animal
-// Paso 3. Llenar todos los campos requeridos (nombre, especie, habitat, descripcion)
-// Paso 4. Enviar el formulario y esperar la confirmacion
+// Esta prueba es AUTOCONTENIDA: crea su propia especie y habitat para no depender
+// de otros tests. Tematica: Panda Gigante
 //
-        // Resultado Esperado: El animal se crea exitosamente y se muestra un mensaje de exito
-// o redireccion a la pagina de detalle
+// Paso 1. Iniciar sesion como administrador
+// Paso 2. Crear una nueva especie (Panda Gigante)
+// Paso 3. Crear un nuevo habitat (Bosque de Bambu)
+// Paso 4. Crear un nuevo animal (Sombra) asociado a especie y habitat creados
+// Paso 5. Verificar que el animal aparece en la lista
+//
+// Resultado Esperado: El animal se crea exitosamente y aparece en la lista
 /****************************************/
 
 public class RegistroAnimalTest extends BaseTest {
 
-    @Test(dependsOnGroups = {"setup"})
-    public void registroAnimalConDatosCompletos(ITestContext context) {
+    @Test(groups = {"jesusvelasco"})
+    public void registroAnimalAutocontenido() {
         long startTime = System.currentTimeMillis();
         String ts = String.valueOf(startTime);
 
-        // Paso 1. La sesion ya se inicio en BaseTest.setUp()
+        // ========================================
+        // PARTE 1: CREAR ESPECIE PANDA GIGANTE
+        // ========================================
 
-        // Paso 2. Navegar por la UI hasta el formulario de creacion de animal
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
+        sleep();
+
+        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
+        sleep();
+
+        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        sleep();
+
+        driver.findElement(
+            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::li")
+        ).click();
+        sleep();
+
+        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
+        sleep();
+
+        driver.findElement(
+            By.xpath("//span[text()='A\u00f1adir Especie']/ancestor::button")
+        ).click();
+        sleep();
+
+        String especieNombre = "Panda Gigante " + ts;
+        driver.findElement(By.id("nombreCientifico")).sendKeys("Ailuropoda melanoleuca " + ts);
+        driver.findElement(By.id("nombreComun")).sendKeys(especieNombre);
+        driver.findElement(By.id("filo")).sendKeys("Chordata");
+        driver.findElement(By.id("clase")).sendKeys("Mammalia");
+        driver.findElement(By.id("orden")).sendKeys("Carnivora");
+        driver.findElement(By.id("familia")).sendKeys("Ursidae");
+        driver.findElement(By.id("descripcion")).sendKeys("Oso nativo de China, conocido por su dieta de bambu");
+
+        driver.findElement(By.xpath("//span[text()='Crear Especie']/ancestor::button")).click();
+        sleep();
+
+        // ========================================
+        // PARTE 2: CREAR HABITAT DE BAMBU
+        // ========================================
+
+        driver.findElement(By.xpath("//zoo-profile-button//button")).click();
+        sleep();
+
+        driver.findElement(By.xpath("//span[text()='Panel de Administraci\u00f3n']/ancestor::a")).click();
+        sleep();
+
+        driver.findElement(By.xpath("//p-button[@slot='nav-toggle']//button")).click();
+        sleep();
+
+        driver.findElement(
+            By.xpath("//zoo-sidebar-admin-menu//span[text()='Gesti\u00f3n de Animales']/ancestor::li")
+        ).click();
+        sleep();
+
+        driver.findElement(By.xpath("//button[.//span[contains(@class, 'pi-times')]]")).click();
+        sleep();
+
+        driver.findElement(
+            By.xpath("//span[text()='A\u00f1adir H\u00e1bitat']/ancestor::button")
+        ).click();
+        sleep();
+
+        String habitatNombre = "Bosque de Bambu " + ts;
+        driver.findElement(By.id("nombre")).sendKeys(habitatNombre);
+        driver.findElement(By.id("tipo")).sendKeys("Bosque Templado");
+        driver.findElement(By.id("descripcion")).sendKeys("Bosque templado con abundante bambu");
+        driver.findElement(By.id("condicionesClimaticas")).sendKeys("Templado y humedo");
+
+        driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
+        sleep();
+
+        // ========================================
+        // PARTE 3: CREAR ANIMAL SOMBRA
+        // ========================================
+
         driver.findElement(By.xpath("//zoo-profile-button//button")).click();
         sleep();
 
@@ -55,41 +131,42 @@ public class RegistroAnimalTest extends BaseTest {
         ).click();
         sleep();
 
-        // Paso 3. Llenar todos los campos requeridos
-        String nombreAnimal = "Simba " + ts;
+        String nombreAnimal = "Sombra " + ts;
         driver.findElement(By.id("nombre")).sendKeys(nombreAnimal);
-        driver.findElement(By.id("procedencia")).sendKeys("Sabana");
+        driver.findElement(By.id("procedencia")).sendKeys("China");
 
-        driver.findElement(By.id("fechaNac")).sendKeys("2026-06-19");
+        driver.findElement(By.id("fechaNac")).sendKeys("2026-03-15");
         sleep();
-        driver.findElement(By.id("fechaIng")).sendKeys("2026-06-19");
+        driver.findElement(By.id("fechaIng")).sendKeys("2026-06-01");
         sleep();
 
-        // Seleccionar especie usando el filtro del dropdown
+        // Seleccionar especie Panda
         driver.findElement(By.id("especieId")).click();
         sleep();
         driver.findElement(By.xpath("//input[@placeholder='Buscar especie']"))
-            .sendKeys((String) context.getSuite().getAttribute("especieNombre"));
+            .sendKeys(especieNombre);
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();
 
-        // Seleccionar habitat usando el filtro del dropdown
+        // Seleccionar habitat Bambu
         driver.findElement(By.id("habitatId")).click();
         sleep();
         driver.findElement(By.xpath("//input[@placeholder='Buscar h\u00e1bitat']"))
-            .sendKeys((String) context.getSuite().getAttribute("habitatNombre"));
+            .sendKeys(habitatNombre);
         sleep();
         driver.findElement(By.cssSelector("li[role='option']:not(.p-select-empty-message)")).click();
         sleep();
 
-        driver.findElement(By.id("descripcion")).sendKeys("Un leon majestuoso de la sabana africana");
+        driver.findElement(By.id("descripcion")).sendKeys("Panda gigante de pelaje blanco y negro");
 
-        // Paso 4. Enviar el formulario (step 1 -> "Crear y Continuar")
         driver.findElement(By.xpath("//span[text()='Crear y Continuar']/ancestor::button")).click();
         sleep();
 
-        // Paso 5. Verificar en la lista de animales
+        // ========================================
+        // PARTE 4: VERIFICACION
+        // ========================================
+
         driver.findElement(
             By.xpath("//span[text()='Lista de Animales']/ancestor::button")
         ).click();
@@ -98,6 +175,8 @@ public class RegistroAnimalTest extends BaseTest {
         String body = driver.findElement(By.xpath("//zoo-lista-animales/div/p-dataview/div[2]")).getText();
         long elapsed = System.currentTimeMillis() - startTime;
 
+        System.out.println("Especie creada: " + especieNombre);
+        System.out.println("Habitat creado: " + habitatNombre);
         System.out.println("Animal creado: " + nombreAnimal);
         System.out.println("Tiempo de ejecucion: " + elapsed + " ms");
 
