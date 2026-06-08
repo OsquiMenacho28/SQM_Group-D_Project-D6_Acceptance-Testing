@@ -14,6 +14,9 @@
             <class name="edu.bo.ucb.manueldelgadillo.Cp31TipoAtencionTest"/>
             <class name="edu.bo.ucb.manueldelgadillo.Cp32ConsultaClinicaTest"/>
             <class name="edu.bo.ucb.manueldelgadillo.Cp45CerrarHistorialTest"/>
+            <class name="edu.bo.ucb.luzticona.InicioSesionTest"/>
+            <class name="edu.bo.ucb.luzticona.RegistroUsuarioTest"/>
+            <class name="edu.bo.ucb.luzticona.AdminCrearUsuarioTest"/>
         </classes>
     </test>
 </suite>
